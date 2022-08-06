@@ -2,7 +2,7 @@ package com.example.commonInfraProxy.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
+//import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.*;
 
 import javax.servlet.http.HttpServletRequest;
