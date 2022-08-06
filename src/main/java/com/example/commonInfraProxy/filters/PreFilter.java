@@ -2,7 +2,6 @@ package com.example.commonInfraProxy.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-//import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ public class PreFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -27,11 +26,13 @@ public class PreFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run()  {
+    public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        System.out.println("========here===========");
+        String token = request.getHeader("token");
+
+        System.out.println("========here==========="+token);
 
         log.info("PreFilter: " + String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
