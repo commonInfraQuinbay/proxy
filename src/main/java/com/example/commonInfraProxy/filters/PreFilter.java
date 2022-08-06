@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PreFilter extends ZuulFilter {
 
-    private static Logger log = LoggerFactory.getLogger(PreFilter.class);
-
     @Override
     public String filterType() {
         return "pre";
@@ -22,19 +20,40 @@ public class PreFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
+
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+
+        if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/user/signup"))
+            return false;
+
         return true;
     }
 
     @Override
     public Object run() {
+
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        String token = request.getHeader("token");
+        try{
+            String token = request.getHeader("token");
+            if(request.getRequestURI().equals("/user/userauthorization"))
+            {
+                if (token.length() == 0)
+                {
+                    ctx.setSendZuulResponse(false);
+                }
+            }
+        }catch (Exception e){
+            ctx.setResponseBody("token is absent "+e.getMessage());
+            ctx.setSendZuulResponse(false);
+        }
 
-        System.out.println("========here==========="+token);
 
-        log.info("PreFilter: " + String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+//        System.out.println("========here==========="+token);
+        System.out.println("uri ==== "+request.getRequestURI());
+
 
         return null;
     }
