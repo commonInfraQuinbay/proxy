@@ -24,6 +24,8 @@ public class PreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
+        System.out.println("filter ====== "+request.getRequestURI());
+
         if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/user/signup"))
             return false;
 
