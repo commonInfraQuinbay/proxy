@@ -66,12 +66,15 @@ public class PreFilter extends ZuulFilter {
 
                 System.out.println(id);
 
+
+
                 if (userExist){
                     response.setHeader("userId", id);
                     ctx.addZuulRequestHeader("userId", id);
                 }
                 else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
+                    // todo : after all the testing, if the token is not valid .. send the user to login page
                 }
 
 
