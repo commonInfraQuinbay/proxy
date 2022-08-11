@@ -5,7 +5,6 @@ import com.example.commonInfraProxy.utils.Utils;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import io.jsonwebtoken.Claims;
-import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,7 +35,8 @@ public class PreFilter extends ZuulFilter {
 
         System.out.println("filter ====== "+request.getRequestURI());
 
-        if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/user/signup"))
+        if(request.getRequestURI().equals("/user/login") || request.getRequestURI().equals("/user/signup") ||
+                request.getRequestURI().equals("/ads/getads/quizMaster"))
             return false;
 
         return true;
@@ -70,6 +70,7 @@ public class PreFilter extends ZuulFilter {
 
                 if (userExist){
                     response.setHeader("userId", id);
+                    response.setHeader("Access-Control-Allow-Origin","*");
                     ctx.addZuulRequestHeader("userId", id);
                 }
                 else {
