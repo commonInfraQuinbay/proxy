@@ -71,7 +71,11 @@ public class PreFilter extends ZuulFilter {
                 if (userExist){
                     response.setHeader("userId", id);
                     response.setHeader("Access-Control-Allow-Origin","*");
+                    response.setHeader("Access-Control-Allow-Methods", "DELETE, GET, OPTIONS, POST, PUT");
+                    response.setHeader("Access-Control-Allow-Credentials", "true");
+
                     ctx.addZuulRequestHeader("userId", id);
+                    ctx.addZuulResponseHeader("Access-Control-Allow-Origin","*");
                 }
                 else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
@@ -84,8 +88,6 @@ public class PreFilter extends ZuulFilter {
             ctx.setSendZuulResponse(false);
         }
 
-
-//        System.out.println("========here==========="+token);
         System.out.println("uri ==== "+request.getRequestURI());
 
 
