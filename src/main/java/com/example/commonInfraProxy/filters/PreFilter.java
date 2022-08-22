@@ -7,11 +7,13 @@ import com.netflix.zuul.context.RequestContext;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component
 public class PreFilter extends ZuulFilter {
 
     @Autowired
